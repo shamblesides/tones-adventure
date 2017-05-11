@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Tone's Adventure</title>
+		<link rel="stylesheet" type="text/css" href="tone.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="title">
+				<h1>Tone's Adventure</h1>
+				<span>An Abandoned Homebrew Gameboy Game</span>
+			</div>
+			<div id="video-panel">
+				<iframe width="640" height="480" src="http://www.youtube.com/embed/XFFF8lUgWpw?rel=0" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<div id="description-panel">
+				<h2>An Experiment in Gameboy Programming</h2>
+				<p>Tone's Adventure was my first and only attempt at creating a game for the Nintendo Gameboy Color. It was an actual ROM that Gameboy emulators and even real Gameboys could play. It was programmed in C, and was compiled using the GBDK compiler.</p>
+				<p>As demonstrated in the video, the player is able to explore a small cave map. The physics are fairly sophisticated. The player can run, jump, swim, and can slide down slopes.</p>
+				<p>Work on this game began in September 2011. The version you see in the video was completed in February 2012.</p>
+				<h2>What happened?</h2>
+				<p>Work on the project ceased for a number of reasons.</p>
+				<p>For starters, programming for the Gameboy was simply not worth it. It's interesting from a technical and perhaps a nostalgic perspective, but the reality is that I was making a game for a dead console that only a few enthusiasts would ever see.</p>
+				<p>Programming at such a low level for such old hardware is not easy. Additionally, resources on Gameboy programming weren't exactly abundant in 2011. A lot of strange glitches cropped up during development, and can be seen in some of the earlier snapshots of the game. In short, making anything at all happen was slow and frustrating.</p>
+				<p>Aside from that, I was running out of clock cycles. C was too bulky for the Gameboy Color. It dawned on me that if I were to make a proper game out of this, I would need to redo everything in assembly. That was the breaking point.</p>
+				<h2>A word of advice</h2>
+				<p>If you are a would-be gameboy game programmer, here is my advice to you: <strong>don't do it.</strong> It isn't worth the trouble for something that so few people will be able to see.</p>
+				<p>Lately I've been using Javascript and HTML5 to make games that can be played right inside a browser! Do that! Javascript is great!</p>
+				<h2>Downloadable ROMs</h2>
+				<p>Although the project was ultimately a failure, I did end up with a functional demo to share. Below are ROM's from various points in development.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Notes</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>September 23, 2011</td>
+							<td>First test. Placeholder character, bad physics, but a working game. Press SELECT for strange glitches!</td>
+							<td><a href="roms/next_2011-09-23.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>October 28, 2011</td>
+							<td>New graphics and map, but the physics have not improved. Improvements allow for a larger map, but it is broken in the bottom left corner.</td>
+							<td><a href="roms/next_2011-10-28.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>November 15, 2011</td>
+							<td>Running and jumping works properly. Fixed map glitches.</td>
+							<td><a href="roms/next_2011-11-15.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>January 30, 2012</td>
+							<td>Game is completely broken. Player teleports across the map sporadically, and quickly leaves the map entirely, now wandering through other part's of the game's memory.</td>
+							<td><a href="roms/next_2012-01-30.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>February 27, 2012</td>
+							<td>Nearly complete version; slopes work but are a bit glitchy. SELECT now lets the player clip through the ground and fly around anywhere.</td>
+							<td><a href="roms/next_2012-02-27.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>March 18, 2012</td>
+							<td>Final version as displayed in the video. Slope glitches are fixed, swimming is implemented, and the player can now control their jump height.</td>
+							<td><a href="roms/next_2012-03-18.gb">Download</a></td>
+						</tr>
+						<tr>
+							<td>May 1, 2012</td>
+							<td>Bonus snapshot; another completely broken game. The colors aren't even right!</td>
+							<td><a href="roms/next_2012-05-01.gb">Download</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
