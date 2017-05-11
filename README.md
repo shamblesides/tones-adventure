@@ -5,10 +5,10 @@ to early 2012.
 
 
 ## Developing
-No special IDE's were used in developing next.gb; just Vim and CMD.
+No special IDE's were used in developing Tone's Adventure; just Vim and CMD.
 
 Sprites and maps were created using
-[http://www.devrs.com/gb/hmgd/intro.html](Harry Mulder's Gameboy Development tools).
+[Harry Mulder's Gameboy Development tools](http://www.devrs.com/gb/hmgd/intro.html).
 Source .GBR and .GBM files can be found in this repository.
 
 
@@ -29,8 +29,8 @@ To clean up built sources, run:
 
 
 ## Running
-next.gb has been tested on BGB 1.5.3, but other Gameboy emulators will probably
-work too.
+Tone's Adventure has been tested on BGB 1.5.3, but other Gameboy emulators
+will probably work too.
 
 
 ## Troubleshooting
