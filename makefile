@@ -1,19 +1,25 @@
 default: o next.gb
 clean:
 	rmdir "o" /S /Q
-	del *.gb
+	del next.gb
 o:
 	mkdir o
 # MBC1, 8 rom banks, GBC support
-next.gb: o/areas.o o/chunks.o o/next.o o/tone.o o/crab.o o/merm.o o/wizard.o o/scyfe.o o/bkg_tiles.o o/intro.o
-	./vendor/gbdk/bin/lcc -Wl-yt1 -Wl-yo8 -Wl-yp0x143=0x80 -o next.gb o/areas.o o/chunks.o o/next.o o/tone.o o/crab.o o/merm.o o/wizard.o o/scyfe.o o/bkg_tiles.o o/intro.o
+next.gb: o/areas.o o/cam.o o/chunks.o o/next.o o/player.o o/tile_mem.o o/tone.o o/crab.o o/merm.o o/wizard.o o/scyfe.o o/bkg_tiles.o o/intro.o
+	./vendor/gbdk/bin/lcc -Wl-yt1 -Wl-yo8 -Wl-yp0x143=0x80 -o next.gb o/areas.o o/cam.o o/chunks.o o/next.o o/player.o o/tile_mem.o o/tone.o o/crab.o o/merm.o o/wizard.o o/scyfe.o o/bkg_tiles.o o/intro.o
 # Bank 0: main code (no -Wf-bo# argument)
 o/areas.o: areas.c
 	./vendor/gbdk/bin/lcc -c -o o/areas.o areas.c
+o/cam.o: cam.c
+	./vendor/gbdk/bin/lcc -c -o o/cam.o cam.c
 o/chunks.o: chunks.c
 	./vendor/gbdk/bin/lcc -c -o o/chunks.o chunks.c
 o/next.o: next.c
 	./vendor/gbdk/bin/lcc -c -o o/next.o next.c
+o/player.o: player.c
+	./vendor/gbdk/bin/lcc -c -o o/player.o player.c
+o/tile_mem.o: tile_mem.c
+	./vendor/gbdk/bin/lcc -c -o o/tile_mem.o tile_mem.c
 # Bank 2: NPC tiles
 o/tone.o: tiles/tone.c
 	./vendor/gbdk/bin/lcc -Wf-bo2 -c -o o/tone.o tiles/tone.c

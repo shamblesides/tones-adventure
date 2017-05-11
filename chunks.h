@@ -20,20 +20,25 @@ struct chunk {
 	UINT8 w,h,bevel;	// by pixels	(1)
 	INT8 vx, vy;		// by subpixels (/16)
 	UINT8 transp; 		// whether it goes through walls!
-	UINT8 first_sprite;
+	UINT8 first_sprite;	// which sprites this chunk will use
 	UINT8 num_sprites;
+	UINT8 tileset_loc;	// tileset offset in vram
 	INT8 x_off, y_off;	// by pixels (1) sprite drawing offset
 	struct area * my_area;
 	UINT8 hit_flags;	// where the object is touching something
 	UINT8 chk_flags;	// misc flags;
-				// |1 = facing_right
-				// |2 = in_water
+				// |1
+				// |2
+				// |4
+				// |8	= hit edge of the lvl
+				// |16	= facing_right
+				// |32	= in_water
 				// ...  reserved
-	//18 bytes
+	//19 bytes
 	void (*act)(struct chunk * chk); // act function for the chunk
-	//20
+	//21
 	UINT8 data[3];		// misc data
-	//23
+	//24
 	
 };
 
@@ -46,10 +51,12 @@ struct chunk {
 #define HIT_T_RIGHT 32U
 #define HIT_B_LEFT 64U
 #define HIT_B_RIGHT 128U
+#define HIT_SIDES \
+	(HIT_TOP+HIT_BOT+HIT_LEFT+HIT_RIGHT)
 
 //misc flags
-#define FACING_RIGHT 1U
-#define FLAG_WATER 2U
+#define FACING_RIGHT 16U
+#define FLAG_WATER 32U
 
 //moves a chunk based on its current velocities
 #define GO_CHUNK(w) \

@@ -89,7 +89,7 @@ void init_scyfe(UINT16 lx, UINT16 ty, UINT8 sp1, struct area * place) {
 static UINT8 scyfe_tile;
 //animation cycle info
 // |128 walking
-// |64	
+// |64
 #define CYCLE chk->data[0]
 
 //actions taken each step for what scyfe does/ his frames
@@ -220,10 +220,10 @@ void scyfe_act(struct chunk * chk) {
 				CYCLE=128U;
 			}
 			//calculate frame
-			scyfe_tile= ( ((chk->chk_flags&FACING_RIGHT)?96:32) | (CYCLE&8?12:0) ) 
+			scyfe_tile= ( ((chk->chk_flags&FACING_RIGHT)?96:32) | (CYCLE&8?12:0) )
 				+((CYCLE&6)? ((CYCLE&6)==6?8:4):0);
 		}
-		
+
 	}
 	//walking frames
 	else if((pad&J_RIGHT) || (pad&J_LEFT)) {
@@ -234,7 +234,7 @@ void scyfe_act(struct chunk * chk) {
 			CYCLE=128U;
 		}
 		//calculate frame
-		scyfe_tile= ( ((chk->chk_flags&FACING_RIGHT)?96:32) | (CYCLE&8?12:0) ) 
+		scyfe_tile= ( ((chk->chk_flags&FACING_RIGHT)?96:32) | (CYCLE&8?12:0) )
 			+((CYCLE&6)? ((CYCLE&6)==6?8:4):0);
 	}
 	//idle frames
@@ -249,12 +249,12 @@ void scyfe_act(struct chunk * chk) {
 			((CYCLE&96)==64)&&((CYCLE&96)!=96)?((CYCLE&6)<<1): //spinning
 			0 ); //still
 	}
-	
-	
+
+
 	//set the tiles
 	set_sprite_tile(t=chk->first_sprite, scyfe_tile++);
 	set_sprite_tile(++t, scyfe_tile++);
 	set_sprite_tile(++t, scyfe_tile++);
 	set_sprite_tile(++t, scyfe_tile++);
-	
+
 }

@@ -39,3 +39,15 @@ struct area intro= {
 	{ 32767UL, 671UL  , 337UL  , 0UL }, //bg palette
 	{ 6076UL , 32767UL, 15136UL, 0UL } //sprite palette
 };
+
+//title
+// extern unsigned char title_tiles[];
+// extern unsigned char title_props[];
+// struct area title= {
+// 	96,18, 	//map_cols, map_rows
+// 	title_tiles,	//tiles_start
+// 	title_props,	//props_start
+// 	5,5,		//tiles_bank,props_bank
+// 	{ 32767UL, 671UL  , 337UL  , 0UL }, //bg palette
+// 	{ 6076UL , 32767UL, 15136UL, 0UL } //sprite palette
+// };

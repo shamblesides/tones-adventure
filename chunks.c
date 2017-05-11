@@ -21,7 +21,7 @@ static UINT8 * my_tile_pointer;
 static UINT16 old_v,new_v,push_v;
 
 //vertical part of collision physics
-void up_coll(struct chunk * chk, INT8 vy) {
+static void up_coll(struct chunk * chk, INT8 vy) {
 	//first, do the actual MOve!
 	ro= (UINT8)(chk->top_y >>7); //old_y would be used here but is unnecessary
 	chk->top_y+=(INT16)vy;
@@ -35,7 +35,7 @@ void up_coll(struct chunk * chk, INT8 vy) {
 	//push toppish
 	// if we're in the same row then we can skip this part entirely
 	if(rn!=ro) {
-	for(c=c1;c!=c2+1;++c) {
+	if(ro) for(c=c1;c!=c2+1;++c) {
 		//what tile is in the square we pushed into?
 		my_tile_pointer= get_prop_pointer(chk->my_area,c,rn);
 
@@ -48,6 +48,14 @@ void up_coll(struct chunk * chk, INT8 vy) {
 			//and done.
 			break;
 		}
+	}
+	//this is when it hits the top of the map!
+	else {
+		//push out to there
+		chk->top_y= 0; //it's just the top.
+		//indicate top hit
+		chk->hit_flags= HIT_TOP;
+		chk->chk_flags|=HIT_TOP;
 	}
 	}
 	//if there's no bevel then that's gonna be it.
@@ -118,7 +126,7 @@ void up_coll(struct chunk * chk, INT8 vy) {
 	//done.
 }
 
-void down_coll(struct chunk * chk, INT8 vy) {
+static void down_coll(struct chunk * chk, INT8 vy) {
 	//ACTUAL MOVE!
 	old_v= chk->top_y;
 	chk->top_y+=(INT16)vy;
@@ -141,7 +149,7 @@ void down_coll(struct chunk * chk, INT8 vy) {
 	//push bottomish
 	// if we're in the same row then we can skip this part entirely
 	if(rn!=ro) {
-	for(c=c1;c!=c2+1;++c) {
+	if(rn != chk->my_area->map_rows) for(c=c1;c!=c2+1;++c) {
 		//what tile is in the square we pushed into?
 		my_tile_pointer= get_prop_pointer(chk->my_area,c,rn);
 
@@ -160,6 +168,14 @@ void down_coll(struct chunk * chk, INT8 vy) {
 			//and done.
 			break;
 		}
+	}
+	//very bottom row
+	else {
+		//push out to there
+		chk->top_y= ( ((UINT16)rn<<3)-chk->h <<4  ); //the bottom!
+		//indicate top hit
+		new_hit_flags= HIT_BOT;
+		chk->chk_flags|=HIT_BOT;
 	}
 	}
 
@@ -291,7 +307,7 @@ void down_coll(struct chunk * chk, INT8 vy) {
 	chk->hit_flags |= new_hit_flags;
 }
 
-void left_coll(struct chunk * chk, INT8 vx) {
+static void left_coll(struct chunk * chk, INT8 vx) {
 	//ACTUAL MOVE!
 	old_v= chk->left_x;
 	chk->left_x+=(INT16)vx;
@@ -314,7 +330,7 @@ void left_coll(struct chunk * chk, INT8 vx) {
 	//push SIDE
 	// if we're in the same row then we can skip this part entirely
 	if(cn!=co) {
-	for(r=r1;r!=r2+1;++r) {
+	if(co) for(r=r1;r!=r2+1;++r) {
 		//what tile is in the square we pushed into?
 		my_tile_pointer= get_prop_pointer(chk->my_area,cn,r);
 
@@ -331,6 +347,14 @@ void left_coll(struct chunk * chk, INT8 vx) {
 			//and done.
 			break;
 		}
+	}
+	//this is when it hits the top of the map!
+	else {
+		//push out to there
+		chk->left_x= 0; //it's just the top.
+		//indicate top hit
+		new_hit_flags= HIT_LEFT;
+		chk->chk_flags|=HIT_LEFT;
 	}
 	}
 
@@ -411,7 +435,7 @@ void left_coll(struct chunk * chk, INT8 vx) {
 }
 
 //horizonal part of collision physics
-void right_coll(struct chunk * chk, INT8 vx) {
+static void right_coll(struct chunk * chk, INT8 vx) {
 	//ACTUAL MOVE!
 	old_v= chk->left_x;
 	chk->left_x+=(INT16)vx;
@@ -434,7 +458,7 @@ void right_coll(struct chunk * chk, INT8 vx) {
 	//push bottomish
 	// if we're in the same row then we can skip this part entirely
 	if(cn!=co) {
-	for(r=r1;r!=r2+1;++r) {
+	if(cn != chk->my_area->map_cols) for(r=r1;r!=r2+1;++r) {
 		//what tile is in the square we pushed into?
 		my_tile_pointer= get_prop_pointer(chk->my_area,cn,r);
 
@@ -451,6 +475,14 @@ void right_coll(struct chunk * chk, INT8 vx) {
 			//and done.
 			break;
 		}
+	}
+	//very rightmost
+	else {
+		//push out to there
+		chk->left_x= ( ((UINT16)cn<<3)-chk->w <<4 ); //the bottom!
+		//indicate top hit
+		new_hit_flags= HIT_RIGHT;
+		chk->chk_flags|=HIT_RIGHT;
 	}
 	}
 
@@ -541,6 +573,7 @@ void scroll_chunk_coll(struct chunk * chk, INT8 vx, INT8 vy) {
 
 	//reset block flags.
 	chk->hit_flags=0;
+	chk->chk_flags&=~ HIT_SIDES;
 
 	//don't worry about x...
 	if(!vx) {
@@ -582,6 +615,8 @@ void scroll_chunk_coll(struct chunk * chk, INT8 vx, INT8 vy) {
 		} else if(!(chk->hit_flags& 128U))
 			down_coll(chk,vy);
 	}
+	//remove chk flags which are eliminated from the hit flags
+	chk->chk_flags &= ( ~HIT_SIDES +(HIT_SIDES&chk->hit_flags) );
 
 	//now change velocities according to block flags!
 	if(chk->hit_flags& 144U) {//top left + bottom right
