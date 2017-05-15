@@ -32,9 +32,6 @@ html {
 	font-variant: small-caps;
 	margin: 0;
 }
-#title span {
-	margin: 0;
-}
 
 #video-panel {
 	width: 100%;
@@ -43,20 +40,19 @@ html {
 	width: 100%;
 }
 #description-panel h2 {
-	margin: 30px 0 15px 0;
+	margin: 20px 0 5px;
 	padding: 0 10px;
 }
 #description-panel p {
-	margin: 5px 0 15px 0;
+	margin: 10px 0;
 	padding: 0 20px;
-	text-align:justify;
+	line-height: 1.4;
 }
 
 #description-panel table {
 	border: solid 4px #906838;
 	border-spacing: 0;
-	border-radius: 8px;
-	margin: 4px;
+	margin: 20px 20px 0;
 	padding: 0;
 	
 }
@@ -64,13 +60,17 @@ html {
 	background-color: #906838;
 	padding: 10px;
 	color: #fff;
+	text-align: left;
 }
 #description-panel td {
-	padding: 5px;
+	padding: 10px;
 }
 #description-panel tr:nth-child(odd) {
 	background-color: #F4F7F7;
 }
 #description-panel tr:nth-child(even) {
 	background-color: #E5E8E8;
+}
+#description-panel tr.best-row {
+	background-color: #ffcf6e;
 }
