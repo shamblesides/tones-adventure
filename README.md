@@ -1,7 +1,10 @@
 # Tone's Adventure
 Tone's Adventure is an unfinished homebrew Gameboy Color game programmed in C
 using the Gameboy Developer Kit (GBDK) library. I worked on it during late 2011
-to early 2012.
+to early 2012. This was a very cool project to work on, and I hope to come back
+to it someday!
+
+[![Tone's Adventure demo video](https://i.imgur.com/WI4RpYo.png)](https://youtu.be/XFFF8lUgWpw "Hyeyo")
 
 
 ## Developing
